@@ -11,8 +11,7 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_views.home, name='home'),  # Главная страница
-    path('', include('main.urls')),           # Все остальные страницы из приложения main
+    path('', include('main.urls')),
     path('users/', include('users.urls')),    # Аутентификация пользователей
     path('constructor/', include(('constructor.urls', 'constructor'), namespace='constructor')),  # Конструктор букетов
 
