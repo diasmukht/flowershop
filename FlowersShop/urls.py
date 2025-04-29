@@ -5,6 +5,13 @@ from main import views as main_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+def run_migrations(request):
+    try:
+        call_command('migrate')
+        return HttpResponse("✅ Миграции успешно выполнены!")
+    except Exception as e:
+        return HttpResponse(f"❌ Ошибка миграции: {e}")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_views.home, name='home'),  # Главная страница
