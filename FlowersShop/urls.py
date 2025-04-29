@@ -20,7 +20,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('users/', include('users.urls')),    # Аутентификация пользователей
     path('constructor/', include(('constructor.urls', 'constructor'), namespace='constructor')),  # Конструктор букетов
-
+    path('migrate-now/', run_migrations),  # Временный маршрут для запуска миграций
 ]
 
 # Подключаем доступ к медиа-файлам (для картинок цветов, упаковки и пр.)
