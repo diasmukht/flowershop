@@ -113,5 +113,10 @@ PROFILE_STATUS_CHOICES = [
     ('vip', 'VIP'),
 ]
 
+ALLOWED_HOSTS = ['web-production-ac353.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://web-production-ac353.up.railway.app']
+
+
 # Groq API Key (если используешь)
 GROQ_API_KEY = "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"
