@@ -6,8 +6,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.core.management import call_command
 from django.http import HttpResponse
+import traceback
 
-
+def run_migrations(request):
+    try:
+        call_command('migrate')
+        return HttpResponse("✅ Миграции успешно применены!")
+    except Exception as e:
+        return HttpResponse(f"❌ Ошибка миграции: {e}<br><pre>{traceback.format_exc()}</pre>")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
