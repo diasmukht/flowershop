@@ -1,4 +1,3 @@
-
 from django.db import models
 from flowers.models import Flower
 
@@ -37,24 +36,24 @@ class CustomBouquet(models.Model):
         if 15 <= total_quantity <= 51:
             if len(flower_names) >= 5:
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_15.jpg"
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_15.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_30.jpg"
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_30.png"
                 else:
-                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_50.jpg"
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_50.png"
 
             elif len(flower_names) == 1:
                 flower_name = flower_items[0].flower.name.lower()
                 if total_quantity == 15:
-                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.jpg"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.png"
                 elif total_quantity <= 20:
-                    self.generated_image = f"generated_bouquets/{flower_name}_20_{packaging_name}.jpg"
+                    self.generated_image = f"generated_bouquets/{flower_name}_20_{packaging_name}.png"
                 elif total_quantity <= 30:
-                    self.generated_image = f"generated_bouquets/{flower_name}_30_{packaging_name}.jpg"
+                    self.generated_image = f"generated_bouquets/{flower_name}_30_{packaging_name}.png"
                 elif total_quantity <= 40:
-                    self.generated_image = f"generated_bouquets/{flower_name}_40_{packaging_name}.jpg"
+                    self.generated_image = f"generated_bouquets/{flower_name}_40_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/{flower_name}_50_{packaging_name}.jpg"
+                    self.generated_image = f"generated_bouquets/{flower_name}_50_{packaging_name}.png"
 
             else:
                 self.generated_image = None
