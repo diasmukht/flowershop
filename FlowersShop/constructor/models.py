@@ -62,7 +62,7 @@ class CustomBouquet(models.Model):
         self.save()
 
 
-
+# sdgssdfsdf
 
     def __str__(self):
         return f"Кастомный букет #{self.id}"
