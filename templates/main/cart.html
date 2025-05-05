@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">🛒 Ваша корзина</h2>
+
+        {% if items %}
+            <ul class="list-group shadow rounded mb-4">
+                {% for item in items %}
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                        <div class="d-flex align-items-center mb-2 mb-md-0">
+                            {% if item.bouquet %}
+                                <img src="{{ item.bouquet.image.url }}" alt="{{ item.bouquet.name }}"
+                                     class="me-3 rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                                <div>
+                                    <strong>{{ item.bouquet.name }}</strong><br>
+                                    <small>{{ item.quantity }} шт.</small>
+                                </div>
+                            {% else %}
+                                <img src="
+                                        {% if item.custom_bouquet.generated_image %}{{ item.custom_bouquet.generated_image.url }}{% else %}/static/img/custom_bouquet.png{% endif %}"
+                                     alt="Кастомный букет" class="me-3 rounded"
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                                <div>
+                                    <strong>Кастомный букет №{{ item.custom_bouquet.id }}</strong><br>
+                                    <small>{{ item.quantity }} шт.</small>
+                                    <div class="mt-2 small">
+                                        <em>Состав:</em>
+                                        <ul class="mb-0 ps-3">
+                                            {% for cf in item.custom_bouquet.custombouquetflower_set.all %}
+                                                <li>{{ cf.flower.name }} — {{ cf.quantity }} шт.</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="text-end">
+                            <span class="h6">{{ item.get_price }} ₸</span>
+                            <form method="post" action="{% url 'remove_from_cart' item.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger ms-3">Удалить</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="card shadow p-4 mb-4">
+                <h5 class="card-title">Сводка заказа</h5>
+                <ul class="list-unstyled">
+                    <li>💐 Товары: <strong>{{ total|floatformat:0 }} ₸</strong></li>
+                    <li>🎁 Упаковка: <strong>{{ packaging_cost }} ₸</strong></li>
+                    {% if discount %}
+                        <li>🔻 Скидка ({{ profile.get_status_display }}) : <strong>-{{ discount|floatformat:0 }}
+                            ₸</strong></li>
+                    {% endif %}
+                    <!-- Доставка -->
+                    {% if delivery == 0 %}
+                        <p>🚚 Доставка: Бесплатно</p>
+                    {% else %}
+                        <p>🚚 Доставка: {{ delivery }} ₸</p>
+                    {% endif %}
+
+                    {% if gift %}
+                        <li>🎀 Подарок: <strong>Открытка бесплатно</strong></li>
+                    {% endif %}
+                </ul>
+                <hr>
+                <h4>Итого: <strong>{{ total_with_discount|floatformat:0 }} ₸</strong></h4>
+            </div>
+
+            <form method="post" action="{% url 'checkout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success w-100 btn-lg">✅ Оформить заказ</button>
+            </form>
+        {% else %}
+            <p class="text-center">Ваша корзина пуста.</p>
+        {% endif %}
+    </div>
+{% endblock %}

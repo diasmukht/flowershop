@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* --- Стилизация табов --- */
+        .nav-tabs .nav-link.active {
+            background-color: #f88db1;
+            color: #fff;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .nav-tabs .nav-link {
+            color: #f88db1;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-tabs .nav-link:hover {
+            background-color: #fbd2e1;
+            color: #000;
+        }
+
+        /* --- Стилизация карусели --- */
+        .carousel-control-prev,
+        .carousel-control-next {
+            top: 45%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            padding: 0;
+            z-index: 5;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 30px;
+            height: 30px;
+            filter: invert(1);
+        }
+
+        /* --- Анимация табов --- */
+        .tab-content > .tab-pane {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .tab-pane:not(.active) {
+            display: block;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .tab-pane.active {
+            height: auto;
+            opacity: 1;
+        }
+
+        /* --- Стили карточек продуктов --- */
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 0.75rem;
+            padding: 10px;
+            background-color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(248, 141, 177, 0.3);
+        }
+
+        /* --- Мелкая адаптация --- */
+        @media (max-width: 768px) {
+            .product-card img {
+                height: 80px;
+            }
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row p-3">
+            <!-- Левая часть: конструктор -->
+            <div class="col-lg-8 col-12 mb-4">
+                <h4 class="text-uppercase mb-3" style="color: #f88db1;">Конструктор</h4>
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="flowers-tab" data-bs-toggle="tab" data-bs-target="#flowers"
+                                type="button" role="tab">Цветы
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="wrap-tab" data-bs-toggle="tab" data-bs-target="#wrap"
+                                type="button" role="tab">Упаковка
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- Цветы -->
+                    <div class="tab-pane fade show active" id="flowers" role="tabpanel">
+                        {% include "constructor/_carousel.html" with items=flowers type="flower" carousel_id="carouselFlowers" %}
+                    </div>
+
+                    <!-- Упаковка -->
+                    <div class="tab-pane fade" id="wrap" role="tabpanel">
+                        {% include "constructor/_carousel.html" with items=wraps type="packaging" carousel_id="carouselWrap" %}
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Правая часть: итоговая корзина -->
+            <div class="col-lg-4 col-12">
+                <div class="preview-box p-3 border rounded" style="border: 2px dashed #f88db1;">
+                    <h5 class="text-center mb-3">Итог</h5>
+
+                    {% if bouquet.get_generated_image %}
+                        <div class="text-center mb-3">
+                            <img src="{{ bouquet.generated_image.url }}" alt="Собранный букет" class="img-fluid"
+                                 style="max-height: 250px; object-fit: contain;">
+                        </div>
+                    {% endif %}
+
+                    <ul class="text-start small">
+                        {% for item in bouquet.custombouquetflower_set.all %}
+                            <li>{{ item.flower.name }} × {{ item.quantity }}</li>
+                        {% endfor %}
+                        {% for item in bouquet.custombouquetpackaging_set.all %}
+                            <li>{{ item.packaging.name }} × {{ item.quantity }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <div id="constructor-summary">
+                        {% include "constructor/_summary_mini.html" %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/constructor.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "users/auth_base.html" %}
+
+{% block header %}Регистрация в FloraLab{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+        <div class="form-error">
+            <h4>Ошибки формы:</h4>
+            <pre>{{ form.errors.as_json }}</pre>
+            <h4>Отправленные данные:</h4>
+            <pre>{{ request.POST }}</pre>
+        </div>
+    {% endif %}
+
+    <form method="post" class="auth-form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>
+            Имя пользователя*
+            <input type="text" name="username"
+                   value="{{ form.username.value|default:'' }}"
+                   required>
+            {% if form.username.errors %}
+                <span class="field-error">{{ form.username.errors.0 }}</span>
+            {% endif %}
+        </label>
+
+        <label>
+            Email
+            <input type="email" name="email"
+                   value="{{ form.email.value|default:'' }}">
+            {% if form.email.errors %}
+                <span class="field-error">{{ form.email.errors.0 }}</span>
+            {% endif %}
+        </label>
+
+        <label>
+            Пароль*
+            <input type="password" name="password1" required>
+            {% if form.password1.errors %}
+                <span class="field-error">{{ form.password1.errors.0 }}</span>
+            {% endif %}
+        </label>
+
+        <label>
+            Подтверждение пароля*
+            <input type="password" name="password2" required>
+            {% if form.password2.errors %}
+                <span class="field-error">{{ form.password2.errors.0 }}</span>
+            {% endif %}
+        </label>
+
+        <label>
+            Номер телефона
+            <input type="tel" name="phone"
+                   value="{{ form.cleaned_data.phone|default_if_none:'' }}"
+                   placeholder="+79991234567">
+            {% if form.phone.errors %}
+                <span class="field-error">{{ form.phone.errors.0 }}</span>
+            {% endif %}
+        </label>
+
+        <label>
+            Адрес
+            <textarea name="address" rows="3"
+                      placeholder="Ваш полный адрес">{{ form.cleaned_data.address|default_if_none:'' }}</textarea>
+            {% if form.address.errors %}
+                <span class="field-error">{{ form.address.errors.0 }}</span>
+            {% endif %}
+        </label>
+
+        <button type="submit" class="auth-button">Зарегистрироваться</button>
+    </form>
+
+    <div class="auth-footer">
+        <p>Уже есть аккаунт? <a href="{% url 'login' %}" class="auth-link">Войдите</a></p>
+    </div>
+{% endblock %}

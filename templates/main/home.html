@@ -1,0 +1,117 @@
+{% extends 'main/../base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid text-center" style="width: 100%; filter: brightness(95%);">
+        <div class="row no-gutters" style="width: 100%;">
+            <div class="col-lg-9 col-md-9 col-12 custom-img-container">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/flow/parallax-home-img1_1.jpg' %}" class="img-fluid custom-img large-img"
+                         alt="Image 1">
+
+                    <!-- Обертка для текста и кнопки -->
+                    <div class="image-content">
+                        <h1 class="image-title">- САД ЦВЕТОВ -</h1>
+                        <p class="image-text">ЛЕТНИЙ НАБОР ЦВЕТОВ</p>
+                        <button  class="buy-now-btn">КУПИ СЕЙЧАС</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12 custom-img-container">
+                <div class="image-wrapper">
+                    <img src="{% static 'img/flow/34.jpg' %}" class="img-fluid custom-img large-img" alt="Image 2">
+                    <div class="item-html">
+                        <h2>50% OFF</h2>
+                        <p><a href="/catalog/" class="link-off">КУПИ СЕЙЧАС</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row no-gutters" style="width: 100%;">
+            <div class="col-lg-3 col-md-6 col-12 custom-img-container">
+                <div class="image-wrapper-buybtn">
+                    <img src="{% static 'img/flow/55.jpg' %}" class="img-fluid custom-img-buybtn small-img"
+                         alt="Image 3">
+
+                    <!-- Эффектный розовый фон -->
+                    <div class="overlay"></div>
+
+                    <!-- Текст -->
+                    <p class="image-text-buybtn">- FLOWERS -</p>
+
+                    <!-- Кнопка -->
+                    <a class="nav-link {% if '/catalog' in request.path %}active{% endif %}"
+                       href="/catalog/"><button class="buy-btn-buybtn">ПЕРЕЙТИ</button></a>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12 custom-img-container">
+                <div class="image-wrapper-buybtn">
+                    <img src="{% static 'img/flow/56.jpg' %}" class="img-fluid custom-img-buybtn small-img"
+                         alt="Image 4">
+
+                    <div class="overlay"></div>
+
+                    <!-- Текст -->
+                    <p class="image-text-buybtn">- INDOOR PLANTS -</p>
+
+                    <!-- Кнопка -->
+                    <a class="nav-link {% if '/catalog' in request.path %}active{% endif %}"
+                       href="/catalog/"><button class="buy-btn-buybtn">ПЕРЕЙТИ</button></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 custom-img-container">
+                <div class="image-wrapper-buybtn">
+                    <img src="{% static 'img/flow/47.jpg' %}" class="img-fluid custom-img-buybtn small-img"
+                         alt="Image 5">
+
+                    <div class="overlay"></div>
+
+                    <!-- Текст -->
+                    <p class="image-text-buybtn">- OUTDOOR PLANTS -</p>
+
+                    <!-- Кнопка -->
+                    <a class="nav-link {% if '/catalog' in request.path %}active{% endif %}"
+                       href="/catalog/"><button class="buy-btn-buybtn">ПЕРЕЙТИ</button></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 custom-img-container">
+                <div class="image-wrapper-buybtn">
+                    <img src="{% static 'img/flow/35.jpg' %}" class="img-fluid custom-img-buybtn small-img"
+                         alt="Image 6">
+
+                    <div class="overlay"></div>
+
+                    <!-- Текст -->
+                    <p class="image-text-buybtn">- GARDEN -</p>
+
+                    <!-- Кнопка -->
+                    <a class="nav-link {% if '/catalog' in request.path %}active{% endif %}"
+                       href="/catalog/"><button class="buy-btn-buybtn">ПЕРЕЙТИ</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container-fluid d-flex flex-wrap justify-content-center g-5 mt-5 "
+         style="width: 100%;  background-color: #F5F5F5;">
+        <div class="card-info">
+            <img src="/static/img/flow/11048910.png" alt="Иконка" style="width: 100px;">
+            <h1 style="font-size: 20px; font-weight: bold; color: rgb(66, 66, 66);">РАССЫЛКА</h1>
+            <br>
+            <label>
+                <input class="inputNew form-control grey newsletter-input" type="text" name="email" size="18"
+                       placeholder="Введите email" style="text-align: center;">
+            </label>
+            <br>
+            <button class="btn-email">ОТПРАВИТЬ</button>
+        </div>
+    </div>
+
+{% endblock %}

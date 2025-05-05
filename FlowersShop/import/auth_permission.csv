@@ -1,0 +1,84 @@
+1,Can add bouquet,1,add_bouquet
+2,Can change bouquet,1,change_bouquet
+3,Can delete bouquet,1,delete_bouquet
+4,Can view bouquet,1,view_bouquet
+5,Can add flower,2,add_flower
+6,Can change flower,2,change_flower
+7,Can delete flower,2,delete_flower
+8,Can view flower,2,view_flower
+9,Can add bouquet flower,3,add_bouquetflower
+10,Can change bouquet flower,3,change_bouquetflower
+11,Can delete bouquet flower,3,delete_bouquetflower
+12,Can view bouquet flower,3,view_bouquetflower
+13,Can add custom bouquet,4,add_custombouquet
+14,Can change custom bouquet,4,change_custombouquet
+15,Can delete custom bouquet,4,delete_custombouquet
+16,Can view custom bouquet,4,view_custombouquet
+17,Can add greenery,5,add_greenery
+18,Can change greenery,5,change_greenery
+19,Can delete greenery,5,delete_greenery
+20,Can view greenery,5,view_greenery
+21,Can add packaging,6,add_packaging
+22,Can change packaging,6,change_packaging
+23,Can delete packaging,6,delete_packaging
+24,Can view packaging,6,view_packaging
+25,Can add wrap,7,add_wrap
+26,Can change wrap,7,change_wrap
+27,Can delete wrap,7,delete_wrap
+28,Can view wrap,7,view_wrap
+29,Can add custom bouquet flower,8,add_custombouquetflower
+30,Can change custom bouquet flower,8,change_custombouquetflower
+31,Can delete custom bouquet flower,8,delete_custombouquetflower
+32,Can view custom bouquet flower,8,view_custombouquetflower
+33,Can add custom bouquet greenery,9,add_custombouquetgreenery
+34,Can change custom bouquet greenery,9,change_custombouquetgreenery
+35,Can delete custom bouquet greenery,9,delete_custombouquetgreenery
+36,Can view custom bouquet greenery,9,view_custombouquetgreenery
+37,Can add custom bouquet packaging,10,add_custombouquetpackaging
+38,Can change custom bouquet packaging,10,change_custombouquetpackaging
+39,Can delete custom bouquet packaging,10,delete_custombouquetpackaging
+40,Can view custom bouquet packaging,10,view_custombouquetpackaging
+41,Can add order,11,add_order
+42,Can change order,11,change_order
+43,Can delete order,11,delete_order
+44,Can view order,11,view_order
+45,Can add order item,12,add_orderitem
+46,Can change order item,12,change_orderitem
+47,Can delete order item,12,delete_orderitem
+48,Can view order item,12,view_orderitem
+49,Can add profile,13,add_profile
+50,Can change profile,13,change_profile
+51,Can delete profile,13,delete_profile
+52,Can view profile,13,view_profile
+53,Can add bouquet,14,add_bouquet
+54,Can change bouquet,14,change_bouquet
+55,Can delete bouquet,14,delete_bouquet
+56,Can view bouquet,14,view_bouquet
+57,Can add cart item,15,add_cartitem
+58,Can change cart item,15,change_cartitem
+59,Can delete cart item,15,delete_cartitem
+60,Can view cart item,15,view_cartitem
+61,Can add log entry,16,add_logentry
+62,Can change log entry,16,change_logentry
+63,Can delete log entry,16,delete_logentry
+64,Can view log entry,16,view_logentry
+65,Can add permission,17,add_permission
+66,Can change permission,17,change_permission
+67,Can delete permission,17,delete_permission
+68,Can view permission,17,view_permission
+69,Can add group,18,add_group
+70,Can change group,18,change_group
+71,Can delete group,18,delete_group
+72,Can view group,18,view_group
+73,Can add user,19,add_user
+74,Can change user,19,change_user
+75,Can delete user,19,delete_user
+76,Can view user,19,view_user
+77,Can add content type,20,add_contenttype
+78,Can change content type,20,change_contenttype
+79,Can delete content type,20,delete_contenttype
+80,Can view content type,20,view_contenttype
+81,Can add session,21,add_session
+82,Can change session,21,change_session
+83,Can delete session,21,delete_session
+84,Can view session,21,view_session

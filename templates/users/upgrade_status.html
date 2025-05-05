@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="profile-wrapper">
+                <div class="profile-card text-center p-4 shadow-lg rounded-4">
+                    <h2 class="mb-4">Улучшение статуса</h2>
+                    <p>Текущий статус: <strong>{{ user.profile.get_status_display }}</strong></p>
+
+                    <form method="POST" class="upgrade-form mt-4">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            {% for choice in form.new_status %}
+                                <div class="col-md-6">
+                                    <div class="card status-card h-100 p-3 text-center
+                                        {% if choice.data.value == "regular" %}
+                                            bg-light
+                                        {% elif choice.data.value == "advanced" %}
+                                            border border-primary
+                                        {% elif choice.data.value == "vip" %}
+                                            border border-warning
+                                        {% endif %}
+                                    ">
+                                        <div class="card-body">
+                                            {{ choice.tag }}
+                                            <label for="{{ choice.id_for_label }}" class="fw-bold fs-5">
+                                                {{ choice.choice_label }}
+                                            </label>
+                                            <div class="price mt-2">
+                                                {% if choice.data.value == "advanced" %}
+                                                    <span>2000 ₸/мес</span>
+                                                {% elif choice.data.value == "vip" %}
+                                                    <span>5000 ₸/мес</span>
+                                                {% else %}
+                                                    <span>Бесплатно</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mt-4 d-flex justify-content-center gap-3">
+                            <button type="submit" class="btn btn-success px-5">Подтвердить</button>
+                            <a href="{% url 'profile' %}" class="btn btn-outline-danger px-5">Отмена</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

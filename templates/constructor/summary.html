@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        @media (max-width: 768px) {
+            h2, h5 {
+                font-size: 1.2rem;
+            }
+
+            .list-group-item {
+                font-size: 0.9rem;
+            }
+        }
+
+        .image-wrapper {
+            position: relative;
+            min-height: 250px;
+        }
+
+        .blurred {
+            filter: blur(8px);
+            transition: filter 0.5s ease-out;
+        }
+
+        .loader-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .loader-flower {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f88db1;
+            border-top: 6px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .custom-btn {
+            font-size: 1.1rem;
+            padding: 10px 20px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Ваш кастомный букет</h2>
+
+        {% if bouquet.generated_image %}
+            <div class="image-wrapper my-4">
+                <div class="loader-overlay" id="loader">
+                    <div class="loader-flower"></div>
+                </div>
+                <img src="{{ bouquet.generated_image.url }}" class="img-fluid rounded shadow blurred" id="bouquetImage"
+                     alt="Генерированное изображение" style="max-height: 400px; object-fit: contain;">
+            </div>
+        {% else %}
+            <div class="text-center my-4">
+                <div class="loader-flower"></div>
+                <p class="text-muted mt-3">🖼 Генерация изображения...</p>
+            </div>
+        {% endif %}
+
+        <div class="mt-4 fade-in" id="contentBlock">
+            <h5>Состав:</h5>
+            <ul class="list-group mb-3">
+                {% for item in bouquet.custombouquetflower_set.all %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        🌸 {{ item.flower.name }} — {{ item.quantity }} × {{ item.flower.price }} ₸
+                    </li>
+                {% endfor %}
+                {% for item in bouquet.custombouquetpackaging_set.all %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        🎁 {{ item.packaging.name }} — {{ item.quantity }} × {{ item.packaging.price }} ₸
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <p class="h5 text-end"><strong>Итого:</strong> {{ bouquet.total_price }} ₸</p>
+
+            <div class="d-flex justify-content-between flex-wrap gap-2 mt-4">
+                <form method="post" action="{% url 'constructor:clear_constructor' %}" class="w-100">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger w-100 custom-btn">
+                        🗑 Очистить букет
+                    </button>
+                </form>
+
+                <form method="post" action="{% url 'constructor:add_to_cart' %}" class="w-100 mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success w-100 custom-btn">
+                        🛒 В корзину
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            const image = document.getElementById('bouquetImage');
+            const loader = document.getElementById('loader');
+            const contentBlock = document.getElementById('contentBlock');
+
+            if (image && loader && contentBlock) {
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    image.classList.remove('blurred');
+                    contentBlock.classList.add('visible');
+                }, 4000);
+            }
+        });
+    </script>
+{% endblock %}

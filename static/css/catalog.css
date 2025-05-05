@@ -1,0 +1,36 @@
+body {
+    background-color: #ffffff;
+    color: #000;
+    font-family: 'Segoe UI', sans-serif;
+
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .card-body {
+    background-color: #fff;
+}
+
+
+
+.pagination .page-link {
+    color: #F88DB1;
+    border-radius: 10px;
+    margin: 0 4px;
+}
+
+.pagination .active .page-link {
+    background-color: #F88DB1;
+    border: none;
+    color: white;
+}

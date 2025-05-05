@@ -1,0 +1,31 @@
+{% extends "users/auth_base.html" %}
+
+{% block header %}Вход в FloraLab{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+        <div class="form-error">
+            <p>Неверное имя пользователя или пароль</p>
+        </div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+
+        <label>
+            Имя пользователя
+            <input type="text" name="username" required>
+        </label>
+
+        <label>
+            Пароль
+            <input type="password" name="password" required>
+        </label>
+
+        <button type="submit" class="auth-button">Войти</button>
+    </form>
+
+    <div class="auth-footer">
+        <p>Ещё нет аккаунта? <a href="{% url 'register' %}" class="auth-link">Зарегистрируйтесь</a></p>
+    </div>
+{% endblock %}

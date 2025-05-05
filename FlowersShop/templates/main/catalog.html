@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+    <br>
+    <div class="container mt-4">
+        <h2>Каталог</h2>
+        <br>
+        <div class="row">
+            <!-- Левая колонка - фильтры -->
+            <div class="col-md-3">
+                <form method="get">
+                    <h5>Тип цветка</h5>
+                    {% for type in flower_types %}
+                        <label>
+                            <input type="checkbox" name="flower_type" value="{{ type }}"
+                                   {% if type in selected_flower_types %}checked{% endif %}>
+                            {{ type|title }}
+                        </label><br>
+                    {% endfor %}
+
+                    <h5 class="mt-3">Декор</h5>
+                    {% for d in decor_types %}
+                        <label>
+                            <input type="checkbox" name="decor" value="{{ d }}"
+                                   {% if d in selected_decor_types %}checked{% endif %}>
+                            {{ d|title }}
+                        </label><br>
+                    {% endfor %}
+
+                    <h5 class="mt-3">Ваза в комплекте</h5>
+                    {% for v in vase_types %}
+                        <label>
+                            <input type="checkbox" name="vase" value="{{ v }}"
+                                   {% if v in selected_vase_types %}checked{% endif %}>
+                            {{ v|title }}
+                        </label><br>
+                    {% endfor %}
+
+                    <h5 class="mt-3">Дата доставки</h5>
+                    <label><input type="checkbox" name="delivery_date" value="next_day"
+                                  {% if 'next_day' in selected_delivery_dates %}checked{% endif %}> На следующий
+                        день</label><br>
+                    <label><input type="checkbox" name="delivery_date" value="same_day"
+                                  {% if 'same_day' in selected_delivery_dates %}checked{% endif %}> В тот же
+                        день</label><br>
+
+                    <h5 class="mt-3">Размер</h5>
+                    {% for s in size_types %}
+                        <label>
+                            <input type="checkbox" name="size" value="{{ s }}"
+                                   {% if s in selected_size_types %}checked{% endif %}>
+                            {{ s|title }}
+                        </label><br>
+                    {% endfor %}
+
+                    <h5 class="mt-3">Цена</h5>
+                    <label>
+                        <input type="number" name="price_min" placeholder="от" class="form-control mb-2"
+                               value="{{ request.GET.price_min }}">
+                    </label>
+                    <label>
+                        <input type="number" name="price_max" placeholder="до" class="form-control mb-2"
+                               value="{{ request.GET.price_max }}">
+                    </label>
+
+                    <h5>Производитель</h5>
+                    <label>
+                        <select name="manufacturer" class="form-select mb-3">
+                            <option value="">Все</option>
+                            <option value="interflora"
+                                    {% if request.GET.manufacturer == 'interflora' %}selected{% endif %}>Interflora
+                            </option>
+                            <option value="florafresh"
+                                    {% if request.GET.manufacturer == 'florafresh' %}selected{% endif %}>Flora Fresh
+                            </option>
+                            <option value="local" {% if request.GET.manufacturer == 'local' %}selected{% endif %}>
+                                Местный
+                            </option>
+                        </select>
+                    </label>
+                    <br>
+                    <label>
+                        <input type="checkbox" name="has_discount" value="1"
+                               {% if request.GET.has_discount %}checked{% endif %}>
+                        Только со скидкой
+                    </label><br>
+
+                    <button type="submit" class="btn btn-primary mt-3">Применить</button>
+                </form>
+            </div>
+
+            <!-- Правая колонка - результаты -->
+            <div class="col-md-9">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for bouquet in page_obj %}
+                        <a href="{% url 'bouquet_detail' bouquet.id %}" class="text-decoration-none text-dark">
+                            <div class="card position-relative h-100 text-center p-3">
+                                {% if bouquet.has_discount %}
+                                    <div class="position-absolute top-0 end-0 text-white px-2 py-1 rounded-start"
+                                         style="font-size: 0.75rem; background-color: #f88db1">СКИДКА
+                                    </div>
+                                {% endif %}
+                                {% if bouquet.is_popular %}
+                                    <div class="position-absolute top-0 end-0 text-white px-2 py-1 rounded-start"
+                                         style="font-size: 0.75rem; background-color: RED">ПОПУЛЯРНОЕ
+                                    </div>
+                                {% endif %}
+                                <img src="{{ bouquet.image.url }}" class="card-img-top" alt="{{ bouquet.name }}"
+                                     style="max-height: 220px; object-fit: contain;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase"
+                                        style="font-size: 20px">{{ bouquet.name }}</h5>
+
+                                    {% if bouquet.has_discount %}
+                                        <p class="card-text fs-5 fw-semibold" style="font-size: 0.9rem; color: #f88db1">
+                                            {{ bouquet.discount_price }} ₸
+                                            <span class="text-decoration-line-through ms-2"
+                                                  style="font-size: 0.9rem; color: #000000">
+                                            {{ bouquet.price }} ₸
+                                        </span>
+                                        </p>
+                                    {% else %}
+                                        <p class="card-text fs-5 fw-semibold" style="color: #f88db1">{{ bouquet.price }}
+                                            ₸</p>
+                                    {% endif %}
+
+                                    <div class="rating text-warning fs-6">
+                                        {% for i in "12345"|slice:":5" %}
+                                            {% if forloop.counter <= bouquet.rating %}
+                                                <i class="fas fa-star"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <p>Ничего не найдено.</p>
+                    {% endfor %}
+                </div>
+
+                <nav>
+                    <ul class="pagination justify-content-center mt-4">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=
+                                        {{ page_obj.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}">←</a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=
+                                            {{ num }}{% if querystring %}&{{ querystring }}{% endif %}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=
+                                        {{ page_obj.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}">→</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+    .form-grid input[type="text"],
+    .form-grid input[type="email"],
+    .form-grid input[type="file"],
+    .form-grid input[type="password"],
+    .form-grid textarea,
+    .form-grid select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #fff;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-grid input:focus,
+    .form-grid textarea:focus,
+    .form-grid select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+        outline: none;
+    }
+
+    .form-grid label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-grid p {
+        margin-bottom: 20px;
+    }
+</style>
+
+    <div class="profile-wrapper">
+        <div class="profile-card">
+            <!-- Круглый аватар по центру -->
+            <div class="avatar-container">
+                <img src="{{ user.profile.get_avatar_url }}"
+                     alt="Аватар {{ user.username }}"
+                     class="profile-avatar">
+            </div>
+            <div class="profile-content">
+                <h2 class="profile-username">{{ user.username }}</h2>
+                <div class="profile-status">
+                <span class="status-badge {{ user.profile.status }}">
+                    {{ user.profile.get_status_display }}
+                </span>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" class="profile-form">
+                    {% csrf_token %}
+
+                    <div class="form-grid" style="
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+    margin-top: 30px;
+">
+
+                        <!-- Основные поля пользователя -->
+                        <div style="background: #f9f9f9; padding: 15px; border-radius: 10px;">
+                            {{ user_form.as_p }}
+                        </div>
+
+                        <!-- Поля профиля -->
+                        <div style="background: #f4f4f4; padding: 15px; border-radius: 10px;">
+                            {{ profile_form.as_p }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                        <a href="{% url 'upgrade_status' %}" class="btn-upgrade">
+                            <i class="fas fa-crown"></i> Улучшить статус
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
