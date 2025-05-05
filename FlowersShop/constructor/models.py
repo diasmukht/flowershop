@@ -1,7 +1,7 @@
+
 from django.db import models
 from flowers.models import Flower
-import os
-from django.conf import settings
+
 
 class CustomBouquet(models.Model):
     session_key = models.CharField(max_length=100, null=True, blank=True)
@@ -45,25 +45,22 @@ class CustomBouquet(models.Model):
 
             elif len(flower_names) == 1:
                 flower_name = flower_items[0].flower.name.lower()
-
                 if total_quantity == 15:
-                    base_name = f"{flower_name}_15_{packaging_name}"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.jpg"
                 elif total_quantity <= 20:
-                    base_name = f"{flower_name}_20_{packaging_name}"
+                    self.generated_image = f"generated_bouquets/{flower_name}_20_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.jpg"
                 elif total_quantity <= 30:
-                    base_name = f"{flower_name}_30_{packaging_name}"
+                    self.generated_image = f"generated_bouquets/{flower_name}_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.jpg"
                 elif total_quantity <= 40:
-                    base_name = f"{flower_name}_40_{packaging_name}"
+                    self.generated_image = f"generated_bouquets/{flower_name}_40_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.jpg"
                 else:
-                    base_name = f"{flower_name}_50_{packaging_name}"
+                    self.generated_image = f"generated_bouquets/{flower_name}_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/{flower_name}_15_{packaging_name}.jpg"
 
-                for ext in ['.png', '.jpg']:
-                    path = os.path.join(settings.MEDIA_ROOT, 'generated_bouquets', base_name + ext)
-                    if os.path.exists(path):
-                        self.generated_image = f"generated_bouquets/{base_name}{ext}"
-                        break
-                else:
-                    self.generated_image = None
             else:
                 self.generated_image = None
         else:
