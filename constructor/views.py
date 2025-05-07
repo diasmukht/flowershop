@@ -22,6 +22,7 @@ def step_one(request):
     wraps = Packaging.objects.all()
 
     bouquet = CustomBouquet.objects.filter(session_key=session_key).last()
+    has_packaging = bouquet.custombouquetpackaging_set.exists()
 
     total_flowers = 0
     if bouquet:
@@ -32,7 +33,9 @@ def step_one(request):
         'greenery': greenery,
         'wraps': wraps,
         'bouquet': bouquet,
-        'total_flowers': total_flowers
+        'total_flowers': total_flowers,
+        'has_packaging': has_packaging
+
     })
 
 

@@ -17,6 +17,13 @@
         Количество цветов должно быть от 15 до 51. Сейчас: {{ total_flowers }} шт.
     </div>
     <button class="btn btn-secondary btn-lg" disabled>Оформить</button>
+
+{% elif not has_packaging %}
+    <div class="alert alert-warning mt-2" role="alert">
+        Пожалуйста, выберите упаковку.
+    </div>
+    <button class="btn btn-secondary btn-lg" disabled>Оформить</button>
+
 {% else %}
     <a href="{% url 'constructor:summary' %}" class="btn btn-success btn-lg">Оформить</a>
 {% endif %}
