@@ -63,6 +63,41 @@
         .fade-in.visible {
             opacity: 1;
         }
+
+        .feedback-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f88db1;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            z-index: 9999;
+            font-weight: 500;
+        }
+
+        .feedback-popup.visible {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .feedback-popup a {
+            color: #fff;
+            font-weight: bold;
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+
+        .feedback-popup a:hover {
+            text-decoration: none;
+        }
+
     </style>
 
     <div class="container mt-5">
@@ -82,6 +117,10 @@
                 <p class="text-muted mt-3">🖼 Генерация изображения...</p>
             </div>
         {% endif %}
+        <div id="feedbackPrompt" class="feedback-popup">
+            🎉 Уделите минуту, чтобы улучшить наш сервис!
+            <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank">Пройти опрос</a>
+        </div>
 
         <div class="mt-4 fade-in" id="contentBlock">
             <h5>Состав:</h5>
@@ -118,21 +157,14 @@
             </div>
         </div>
     </div>
-    <div id="feedbackPrompt" class="alert alert-info mt-4 fade-in" style="display: none;">
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <span>🎉 Уделите минуту, чтобы улучшить наш сервис!</span>
-            <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" target="_blank"
-               class="btn btn-sm btn-primary ms-3 mt-2 mt-md-0">
-                Пройти опрос
-            </a>
-        </div>
-    </div>
+
 
     <script>
         window.addEventListener('DOMContentLoaded', function () {
             const image = document.getElementById('bouquetImage');
             const loader = document.getElementById('loader');
             const contentBlock = document.getElementById('contentBlock');
+            const feedbackPrompt = document.getElementById('feedbackPrompt');
 
             if (image && loader && contentBlock) {
                 setTimeout(() => {
@@ -141,15 +173,14 @@
                     contentBlock.classList.add('visible');
                 }, 4000);
             }
-            const feedbackPrompt = document.getElementById('feedbackPrompt');
 
+            // Показываем сообщение через 6 сек
             setTimeout(() => {
                 if (feedbackPrompt) {
-                    feedbackPrompt.style.display = 'block';
                     feedbackPrompt.classList.add('visible');
                 }
-            }, 6000); // появляется спустя 2 сек после загрузки изображения
-
+            }, 6000);
         });
+
     </script>
 {% endblock %}
