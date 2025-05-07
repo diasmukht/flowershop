@@ -148,12 +148,20 @@
                     </button>
                 </form>
 
-                <form method="post" action="{% url 'constructor:add_to_cart' %}" class="w-100 mt-2">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success w-100 custom-btn">
-                        🛒 В корзину
-                    </button>
-                </form>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'constructor:add_to_cart' %}" class="w-100 mt-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success w-100 custom-btn">
+                            🛒 В корзину
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'constructor:summary' %}"
+                       class="btn btn-warning w-100 mt-2 custom-btn">
+                        🔐 Войти, чтобы добавить в корзину
+                    </a>
+                {% endif %}
+
 
             </div>
         </div>
