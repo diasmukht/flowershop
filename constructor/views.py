@@ -128,13 +128,16 @@ def summary_partial(request):
     bouquet.update_total_price()
     has_packaging = bouquet.custombouquetpackaging_set.exists()
     total_flowers = 0
+    bouquet_size = request.session.get('bouquet_size')
+
     if bouquet:
         total_flowers = sum(item.quantity for item in bouquet.custombouquetflower_set.all())
 
     html = render_to_string('constructor/_summary_mini.html', {
         'bouquet': bouquet,
         'total_flowers': total_flowers,
-        'has_packaging': has_packaging
+        'has_packaging': has_packaging,
+        'bouquet_size': bouquet_size
     })
     return HttpResponse(html)
 
@@ -156,3 +159,14 @@ def add_to_cart(request):
             )
 
     return redirect('cart')  # перекидываем в корзину после добавления
+
+
+@csrf_exempt
+def set_size(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        size = int(data.get('size', 0))
+        if size in [15, 31, 51]:
+            request.session['bouquet_size'] = size
+            return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Invalid size'}, status=400)

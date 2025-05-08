@@ -179,3 +179,4 @@ def catalog_view(request):
     }
 
     return render(request, 'main/catalog.html', context)
+

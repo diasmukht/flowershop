@@ -13,23 +13,21 @@
 <div id="error-container"></div>
 
 
-{% if total_flowers < 15 or total_flowers > 51 %}
-    <div class="alert alert-warning mt-2" role="alert">
-        Количество цветов должно быть от 15 до 51. Сейчас: {{ total_flowers }} шт.
-    </div>
+{% if not bouquet_size %}
+    <div class="alert alert-warning mt-2">Выберите объём букета</div>
+    <button class="btn btn-secondary btn-lg" disabled>Оформить</button>
+{% elif total_flowers < bouquet_size %}
+    <div class="alert alert-warning mt-2">Вы выбрали объём: {{ bouquet_size }}. Добавьте ещё цветов.</div>
     <button class="btn btn-secondary btn-lg" disabled>Оформить</button>
 {% elif bouquet.custombouquetflower_set.count > 5 %}
-    <div class="alert alert-warning mt-2" role="alert">
-        Нельзя выбрать более 5 видов цветов. Сейчас: {{ bouquet.custombouquetflower_set.count }} видов.
-    </div>
+    <div class="alert alert-warning mt-2">Максимум 5 видов цветов</div>
     <button class="btn btn-secondary btn-lg" disabled>Оформить</button>
 {% elif not has_packaging %}
-    <div class="alert alert-warning mt-2" role="alert">
-        Выберите упаковку, чтобы продолжить оформление.
-    </div>
+    <div class="alert alert-warning mt-2">Выберите упаковку</div>
     <button class="btn btn-secondary btn-lg" disabled>Оформить</button>
 {% else %}
     <a href="{% url 'constructor:summary' %}" class="btn btn-success btn-lg">Оформить</a>
 {% endif %}
+
 
 
