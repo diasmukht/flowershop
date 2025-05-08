@@ -11,6 +11,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 import json
 
+
 def step_one(request):
     session_key = request.session.session_key
     if not session_key:
@@ -23,7 +24,6 @@ def step_one(request):
 
     bouquet = CustomBouquet.objects.filter(session_key=session_key).last()
 
-
     total_flowers = 0
     if bouquet:
         total_flowers = sum(item.quantity for item in bouquet.custombouquetflower_set.all())
@@ -35,9 +35,7 @@ def step_one(request):
         'bouquet': bouquet,
         'total_flowers': total_flowers
 
-
     })
-
 
 
 def summary(request):
@@ -72,6 +70,14 @@ def update_item(request):
             model = CustomBouquetFlower
             base_model = Flower
             field = 'flower'
+
+            base_obj = base_model.objects.get(id=item_id)
+
+            # Ограничение: не более 5 видов цветов
+            existing_flower_ids = bouquet.custombouquetflower_set.values_list('flower_id', flat=True)
+            if action == 'add' and base_obj.id not in existing_flower_ids and len(existing_flower_ids) >= 5:
+                return JsonResponse({'error': 'Можно выбрать не более 5 разных цветов'}, status=400)
+
         elif item_type == 'greenery':
             model = CustomBouquetGreenery
             base_model = Greenery
@@ -111,6 +117,7 @@ def clear_constructor(request):
     if session_key:
         CustomBouquet.objects.filter(session_key=session_key).delete()
     return redirect('constructor:step1')
+
 
 def summary_partial(request):
     session_key = request.session.session_key

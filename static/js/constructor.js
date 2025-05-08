@@ -11,6 +11,8 @@ function updateItem(type, id, action) {
     .then(data => {
         if (data.success) {
             refreshSummary();  // 🔄 только часть страницы
+        } else if (data.error) {
+            showError(data.error);  // 👇 покажи ошибку
         }
     });
 }
@@ -34,4 +36,17 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+function showError(message) {
+    const container = document.getElementById('error-container');
+    if (container) {
+        container.innerHTML = `
+            <div class="alert alert-danger mt-3" role="alert">
+                ${message}
+            </div>`;
+        setTimeout(() => {
+            container.innerHTML = '';
+        }, 4000);
+    }
 }
