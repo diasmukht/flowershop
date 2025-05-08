@@ -1,15 +1,3 @@
-function selectSize(size) {
-    fetch('/constructor/set_size/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify({ size })
-    }).then(() => refreshSummary());
-}
-
-
 function updateItem(type, id, action) {
     fetch('/constructor/update_item/', {
         method: 'POST',
@@ -62,4 +50,3 @@ function showError(message) {
         }, 4000);
     }
 }
-
