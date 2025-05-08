@@ -54,11 +54,11 @@ class CustomBouquet(models.Model):
 
             elif len(flower_names) == 5:
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_15.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_30.png"
                 else:
-                    self.generated_image = f"generated_bouquets/combo_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_50.png"
 
             elif len(flower_names) == 4:
                 if total_quantity <= 24:
