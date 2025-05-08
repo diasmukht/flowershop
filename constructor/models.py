@@ -36,15 +36,15 @@ class CustomBouquet(models.Model):
         main_flower = flower_items[0].flower.name.lower()
         if 15 <= total_quantity <= 51:
 
-            if sorted(flower_names) == sorted(['роза', 'тюльпан', 'Орхидея', 'Хризантемa', 'Ранункулюс']):
+            if sorted(flower_names) == sorted(['тюльпан', 'орхидея', 'ранункулюс', 'хризантема', 'роза']):
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/special1_3_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special1_5_15_{packaging_name}.png"
                 elif total_quantity <= 39:
                     self.generated_image = f"generated_bouquets/special1_3_30_{packaging_name}.png"
                 else:
                     self.generated_image = f"generated_bouquets/special1_3_50_{packaging_name}.png"
 
-            elif sorted(flower_names) == sorted(['роза', 'тюльпан']):
+            elif sorted(flower_names) == sorted(['Тюльпан', 'Орхидея']):
                 if total_quantity <= 24:
                     self.generated_image = f"generated_bouquets/special_2_15_{packaging_name}.png"
                 elif total_quantity <= 39:
