@@ -32,57 +32,57 @@ class CustomBouquet(models.Model):
         total_quantity = sum(item.quantity for item in flower_items)
 
         # Имя первого цветка в списке (основной для генерации по комбинации)
-        main_flower = flower_items[0].flower.name.lower()
 
+        main_flower = flower_items[0].flower.name.lower()
         if 15 <= total_quantity <= 51:
 
             if sorted(flower_names) == sorted(['роза', 'тюльпан', 'пион']):
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/special_3roses_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special_3_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/special_3roses_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special_3_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/special_3roses_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special_3_50_{packaging_name}.png"
 
             elif sorted(flower_names) == sorted(['роза', 'тюльпан']):
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/special_3roses_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special_2_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/special_3roses_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special_2_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/special_3roses_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special_2_50_{packaging_name}.png"
 
             elif len(flower_names) == 5:
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo5_{main_flower}_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo5_{main_flower}_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/combo5_{main_flower}_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo_50_{packaging_name}.png"
 
             elif len(flower_names) == 4:
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo5_{main_flower}_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo4_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo5_{main_flower}_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo4_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/combo5_{main_flower}_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo4_50_{packaging_name}.png"
 
             elif len(flower_names) == 3:
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo3_{main_flower}_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo3_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo3_{main_flower}_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo3_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/combo3_{main_flower}_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo3_50_{packaging_name}.png"
 
             elif len(flower_names) == 2:
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo2_{main_flower}_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo2_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo2_{main_flower}_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo2_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/combo2_{main_flower}_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/combo2_50_{packaging_name}.png"
 
             elif len(flower_names) == 1:
                 if total_quantity == 15:
