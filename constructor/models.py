@@ -37,36 +37,68 @@ class CustomBouquet(models.Model):
         if 15 <= total_quantity <= 51:
 
             if sorted(flower_names) == sorted(['тюльпан', 'орхидея', 'ранункулюс', 'хризантема', 'роза']):
-                if total_quantity <= 24:
+                if total_quantity == 15:
                     self.generated_image = f"generated_bouquets/special1_5_15_{packaging_name}.png"
+                elif total_quantity <= 25:
+                    self.generated_image = f"generated_bouquets/special1_5_30_{packaging_name}.png"
+                else:
+                    self.generated_image = f"generated_bouquets/special1_5_50_{packaging_name}.png"
+
+            elif sorted(flower_names) == sorted(['роза', 'эустома', 'пион', 'лилия', 'ромашка']):
+                if total_quantity == 15:
+                    self.generated_image = f"generated_bouquets/special2_5_15_{packaging_name}.png"
+                elif total_quantity <= 25:
+                    self.generated_image = f"generated_bouquets/special2_5_30_{packaging_name}.png"
+                else:
+                    self.generated_image = f"generated_bouquets/special2_5_50_{packaging_name}.png"
+
+            elif len(flower_names) == 5:
+                if total_quantity <= 15:
+                    self.generated_image = f"generated_bouquets/combo5_{packaging_name}_15.png"
+                elif total_quantity <= 25:
+                    self.generated_image = f"generated_bouquets/combo5_{packaging_name}_30.png"
+                else:
+                    self.generated_image = f"generated_bouquets/combo5_{packaging_name}_50.png"
+
+            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея', '', '']):
+                if total_quantity <= 24:
+                    self.generated_image = f"generated_bouquets/special1_4_15_{packaging_name}.png"
+                elif total_quantity <= 39:
+                    self.generated_image = f"generated_bouquets/special1_4_30_{packaging_name}.png"
+                else:
+                    self.generated_image = f"generated_bouquets/special1_4_50_{packaging_name}.png"
+
+            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея', '', '']):
+                if total_quantity <= 24:
+                    self.generated_image = f"generated_bouquets/special2_4_15_{packaging_name}.png"
+                elif total_quantity <= 39:
+                    self.generated_image = f"generated_bouquets/special2_4_30_{packaging_name}.png"
+                else:
+                    self.generated_image = f"generated_bouquets/special2_4_50_{packaging_name}.png"
+
+            elif len(flower_names) == 4:
+                if total_quantity <= 15:
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_15.png"
+                elif total_quantity <= 25:
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_30.png"
+                else:
+                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_50.png"
+
+            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея', '']):
+                if total_quantity <= 24:
+                    self.generated_image = f"generated_bouquets/special1_3_15_{packaging_name}.png"
                 elif total_quantity <= 39:
                     self.generated_image = f"generated_bouquets/special1_3_30_{packaging_name}.png"
                 else:
                     self.generated_image = f"generated_bouquets/special1_3_50_{packaging_name}.png"
 
-            elif sorted(flower_names) == sorted(['Тюльпан', 'Орхидея']):
+            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея', '']):
                 if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/special_2_15_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special2_3_15_{packaging_name}.png"
                 elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/special_2_30_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special2_3_30_{packaging_name}.png"
                 else:
-                    self.generated_image = f"generated_bouquets/special_2_50_{packaging_name}.png"
-
-            elif len(flower_names) == 5:
-                if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_15.png"
-                elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_30.png"
-                else:
-                    self.generated_image = f"generated_bouquets/combo_{packaging_name}_50.png"
-
-            elif len(flower_names) == 4:
-                if total_quantity <= 24:
-                    self.generated_image = f"generated_bouquets/combo4_15_{packaging_name}.png"
-                elif total_quantity <= 39:
-                    self.generated_image = f"generated_bouquets/combo4_30_{packaging_name}.png"
-                else:
-                    self.generated_image = f"generated_bouquets/combo4_50_{packaging_name}.png"
+                    self.generated_image = f"generated_bouquets/special2_3_50_{packaging_name}.png"
 
             elif len(flower_names) == 3:
                 if total_quantity <= 24:
@@ -75,6 +107,22 @@ class CustomBouquet(models.Model):
                     self.generated_image = f"generated_bouquets/combo3_30_{packaging_name}.png"
                 else:
                     self.generated_image = f"generated_bouquets/combo3_50_{packaging_name}.png"
+
+            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея']):
+                if total_quantity <= 24:
+                    self.generated_image = f"generated_bouquets/special1_2_15_{packaging_name}.png"
+                elif total_quantity <= 39:
+                    self.generated_image = f"generated_bouquets/special1_2_30_{packaging_name}.png"
+                else:
+                    self.generated_image = f"generated_bouquets/special1_2_50_{packaging_name}.png"
+
+            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея']):
+                if total_quantity <= 24:
+                    self.generated_image = f"generated_bouquets/special2_2_15_{packaging_name}.png"
+                elif total_quantity <= 39:
+                    self.generated_image = f"generated_bouquets/special2_2_30_{packaging_name}.png"
+                else:
+                    self.generated_image = f"generated_bouquets/special2_2_50_{packaging_name}.png"
 
             elif len(flower_names) == 2:
                 if total_quantity <= 24:
