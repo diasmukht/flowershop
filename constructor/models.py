@@ -108,7 +108,7 @@ class CustomBouquet(models.Model):
                 else:
                     self.generated_image = f"generated_bouquets/combo3_50_{packaging_name}.png"
 
-            elif sorted(flower_names) == sorted(['тюльпан', 'орхидея']):
+            elif sorted(flower_names) == sorted(['тюльпан', 'роза']):
                 if total_quantity <= 24:
                     self.generated_image = f"generated_bouquets/special1_2_15_{packaging_name}.png"
                 elif total_quantity <= 39:

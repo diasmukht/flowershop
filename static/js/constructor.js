@@ -10,9 +10,9 @@ function updateItem(type, id, action) {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            refreshSummary();  // 🔄 только часть страницы
+            refreshSummary();
         } else if (data.error) {
-            showError(data.error);  // 👇 покажи ошибку
+            showError(data.error);
         }
     });
 }
