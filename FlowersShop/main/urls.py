@@ -8,7 +8,6 @@ urlpatterns = [
     path('cart/', views.cart_view, name='cart'),
     path('cart/remove/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('cart/checkout/', views.checkout, name='checkout'),
-    path('gpt-response/', views.gpt_response, name='gpt_response'),
     path('catalog/', catalog_view, name='catalog'),
 
 ]
