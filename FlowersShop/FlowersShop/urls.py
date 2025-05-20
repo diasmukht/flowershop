@@ -5,12 +5,15 @@ from main import views as main_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
-    path('users/', include('users.urls')),  # Аутентификация пользователей
+    path('users/', include('users.urls')),    # Аутентификация пользователей
     path('constructor/', include(('constructor.urls', 'constructor'), namespace='constructor')),  # Конструктор букетов
-    path('gpt-response/', main_views.gpt_response, name='gpt_response'),
+
 ]
 
 # Подключаем доступ к медиа-файлам (для картинок цветов, упаковки и пр.)
