@@ -96,7 +96,7 @@ def gpt_response(request):
             }
 
             payload = {
-                "model": "llama3-70b-8192",
+                "model": "llama3-70b-8192", # Или другая модель по твоему выбору
                 "messages": [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": user_message}
@@ -108,17 +108,23 @@ def gpt_response(request):
                 headers=headers,
                 json=payload
             )
-            print("GROQ RAW RESPONSE:", response.text)
             response.raise_for_status()
 
             gpt_reply = response.json()['choices'][0]['message']['content']
             return JsonResponse({'response': gpt_reply})
 
+        except requests.exceptions.RequestException as e:
+            print(f"GROQ API Request Error: {e}")
+            return JsonResponse({'error': f'Ошибка связи с Groq API: {e}'}, status=500)
+        except KeyError as e:
+            print(f"GROQ API Response Error (KeyError): {e}")
+            print(f"GROQ Response Body: {response.text if 'response' in locals() else 'No response'}")
+            return JsonResponse({'error': f'Ошибка обработки ответа от Groq API: {e}'}, status=500)
         except Exception as e:
-            print("GROQ API ERROR:", e)
-            return JsonResponse({'error': 'GPT processing error'}, status=500)
+            print(f"General Error in gpt_response: {e}")
+            return JsonResponse({'error': 'Произошла ошибка при обработке запроса'}, status=500)
 
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+    return JsonResponse({'error': 'Неверный метод запроса'}, status=400)
 
 def catalog_view(request):
     bouquets = Bouquet.objects.filter(available=True)

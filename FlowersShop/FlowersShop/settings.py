@@ -119,4 +119,4 @@ CSRF_TRUSTED_ORIGINS = ['https://web-production-ac353.up.railway.app']
 
 
 # Groq API Key (если используешь)
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "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"
